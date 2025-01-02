@@ -4,8 +4,15 @@ using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
+public enum Type
+{
+    Enemy,
+    CryStal,
+    Wall
+}
 public class Enemy : MonoBehaviour
 {
+    public Type currentType;
     [SerializeField]
     private float maxHP;
     [SerializeField]
@@ -20,6 +27,8 @@ public class Enemy : MonoBehaviour
 
     bool isdie;
     public Renderer ren;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +36,9 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()   
     {
+
         hpbar.value = currentHP/maxHP;
         Die();
     }
@@ -38,14 +48,20 @@ public class Enemy : MonoBehaviour
         if (currentHP <= 0 && !isdie)
         {
             CameraShake.instance.ShakeCamera(12f, 0.5f);
-            ren.material = dieMaterial;
+            if (goods != null)
+                ren.material = dieMaterial;
             StartCoroutine(TimeSlow());
 
             for (int i = 0; i < 5; i++)
             {
+                if (goods == null)
+                    return;
                 Instantiate(goods, transform.position, Quaternion.identity);
             }
-
+            if (currentType == Type.CryStal)
+            {
+                AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
+            }
             isdie = true;
         }
     }
@@ -60,13 +76,25 @@ public class Enemy : MonoBehaviour
 
         CameraShake.instance.ShakeCamera(7f, 0.1f);
 
+        if (currentType == Type.Enemy)
+        {
+            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
+        }
+        if (currentType == Type.CryStal)
+        {
+            AudioManager.instance.PlaySound(transform.position, 1, Random.Range(1.3f, 1.7f), 1f);
+        }
+        if (currentType == Type.Wall)
+        {
+            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
+        }
     }
-
-    IEnumerator TimeSlow()
+        IEnumerator TimeSlow()
     {
             Time.timeScale = 0.1f;
             yield return new WaitForSecondsRealtime(0.2f);
             Time.timeScale = 1;
+        if (goods != null)
         Destroy(Instantiate(dieEffect, transform.position, Quaternion.identity), 3f);
         Destroy(gameObject);
 
