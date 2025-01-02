@@ -16,6 +16,7 @@ public class DrillGold : MonoBehaviour
 
     [SerializeField] Slider expSlider;
 
+    public Drill drill;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,12 +35,14 @@ public class DrillGold : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Goods"))
         {
-            gold += 10;
             GainExp(1); // 아이템 획득 시 경험치 증가 (예: 5)
         }
+        if (other.gameObject.CompareTag("Crystal"))
+        {
+            gold += 10;
+        }
     }
-
-    private void GainExp(float amount)
+        private void GainExp(float amount)
     {
         currentExp += amount;
 
@@ -58,6 +61,8 @@ public class DrillGold : MonoBehaviour
         level++;
         maxExp += 10; // 레벨당 필요 경험치 10 증가
         Debug.Log("레벨업! 현재 레벨: " + level);
+
+        drill.damageAmount += 0.5f;
     }
 
     private void UpdateUI()

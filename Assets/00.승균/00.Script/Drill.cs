@@ -15,7 +15,7 @@ public class Drill : MonoBehaviour
     [SerializeField] Vector3 attackBoxSize; // 공격 범위
     [SerializeField] Transform attackBoxPos; // 공격 위치
     [SerializeField] float damageInterval = 0.2f; // 피해를 줄 간격 (0.2초)
-    [SerializeField] float damageAmount = 10f; // 피해량
+    [SerializeField] public float damageAmount = 10f; // 피해량
 
     private Coroutine damageCoroutine; // 피해 코루틴 저장용
 
@@ -173,6 +173,15 @@ public class Drill : MonoBehaviour
 
                 if (enemyScript != null)
                 {
+
+                    if (enemyScript.currentType == Type.Wall)
+                    {
+                        zoomStep = 0.05f;
+                    }
+                    else
+                    {
+                        zoomStep = 1;
+                    }
                     float randomX = Random.Range(-2f, 2f);  // X 값 범위
                     float randomY = Random.Range(0.5f, 1.5f); // Y 값 범위
 
@@ -187,7 +196,6 @@ public class Drill : MonoBehaviour
 
                     Destroy(damageTextScript.gameObject, 2f);
 
-                    AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
 
                     // 적에게 피해 주기
                     enemyScript.TakeDamage(damage);
