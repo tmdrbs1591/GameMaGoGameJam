@@ -22,11 +22,7 @@ public class MapSpawnBox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Drill"))
         {
-            Instantiate(
-     map[0],
-     mapSpawnPos.transform.position,
-     transform.rotation * Quaternion.Euler(-0.06f, 2.128f, 0.65f)
- );
+            Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
 
         }
     }

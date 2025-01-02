@@ -406,7 +406,7 @@ MonoBehaviour:
   skillEft: {fileID: 29972109}
   hitEft: {fileID: 3478870661482642401, guid: bc9e8bd55c9f4e84f80f30ad36227bec, type: 3}
   virtualCamera: {fileID: 2066179468}
-  defaultZoom: 78
+  defaultZoom: 87
   zoomStep: 1.7
   minZoom: 10
 --- !u!320 &40295832
@@ -522,7 +522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &286824363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15305,6 +15305,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2102557297}
+    - target: {fileID: 1700414292655002984, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700414292655002984, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15323,22 +15333,22 @@ PrefabInstance:
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.03920621
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.005910605
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9880488
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.14895517
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
@@ -15375,28 +15385,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uB5451"
       objectReference: {fileID: 0}
-    - target: {fileID: 4734436961508945037, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+    - target: {fileID: 4818189687298532692, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4734436961508945037, guid: 407f11c57882a6d41bd3983bb9f2b0af,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6407554393213407021, guid: 407f11c57882a6d41bd3983bb9f2b0af,
-        type: 3}
-      propertyPath: map.Array.data[0]
-      value: 
-      objectReference: {fileID: 4438876545775034084, guid: 407f11c57882a6d41bd3983bb9f2b0af,
-        type: 3}
-    - target: {fileID: 7461914350261961307, guid: 407f11c57882a6d41bd3983bb9f2b0af,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7461914350261961307, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+    - target: {fileID: 4818189687298532692, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
