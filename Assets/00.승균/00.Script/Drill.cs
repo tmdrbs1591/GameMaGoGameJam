@@ -21,6 +21,7 @@ public class Drill : MonoBehaviour
 
     public bool isCollidingWithEnemy = false; // 적과 충돌 여부
     [SerializeField] GameObject damageText;
+    [SerializeField] GameObject hitVolume;
 
     [Header("Cinemachine 설정")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera; // 시네머신 카메라
@@ -37,6 +38,10 @@ public class Drill : MonoBehaviour
 
     void Update()
     {
+        if (isCollidingWithEnemy)
+            hitVolume.SetActive(true);
+        else 
+        hitVolume.SetActive(false);
         // 마우스 왼쪽 버튼 클릭 시에만 마우스 방향으로 이동
         if (Input.GetMouseButton(0) && !isCollidingWithEnemy)
         {
