@@ -19,9 +19,15 @@ public class Drill : MonoBehaviour
 
     private Coroutine damageCoroutine; // 피해 코루틴 저장용
 
+    public Transform eftPos;
+
     public bool isCollidingWithEnemy = false; // 적과 충돌 여부
     [SerializeField] GameObject damageText;
     [SerializeField] GameObject hitVolume;
+    [SerializeField] GameObject skillEft;
+    [SerializeField] GameObject hitEft;
+
+    bool isSkill;
 
     [Header("Cinemachine 설정")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera; // 시네머신 카메라
@@ -38,10 +44,14 @@ public class Drill : MonoBehaviour
 
     void Update()
     {
+        if (CutSceneManager.instance.isCutScene)
+            return;
         if (isCollidingWithEnemy)
             hitVolume.SetActive(true);
         else 
         hitVolume.SetActive(false);
+
+        Skill();
         // 마우스 왼쪽 버튼 클릭 시에만 마우스 방향으로 이동
         if (Input.GetMouseButton(0) && !isCollidingWithEnemy)
         {
@@ -65,6 +75,14 @@ public class Drill : MonoBehaviour
     }
 
 
+    void Skill()
+    {
+        if (Input.GetKeyDown(KeyCode.Q)) { 
+        
+        StartCoroutine(SkillCor());
+
+        }
+    }
 
     void MoveTowardsMouseDirection()
     {
@@ -172,6 +190,7 @@ public class Drill : MonoBehaviour
                     // 적에게 피해 주기
                     enemyScript.TakeDamage(damage);
                     Instantiate(hitPtc, collider.transform.position, Quaternion.identity);
+                    Instantiate(hitEft, eftPos.transform.position, Quaternion.identity);
 
                     Debug.Log("공격!");
 
@@ -212,6 +231,18 @@ public class Drill : MonoBehaviour
         {
             Debug.LogError("Cinemachine Virtual Camera가 설정되지 않았습니다.");
         }
+    }
+
+    IEnumerator SkillCor()
+    {
+        CameraShake.instance.ShakeCamera(10f, 0.2f);
+        moveSpeed = 60;
+        skillEft.SetActive(false);
+        skillEft.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+
+        moveSpeed = 17;
+
     }
     private void OnDrawGizmos()
     {

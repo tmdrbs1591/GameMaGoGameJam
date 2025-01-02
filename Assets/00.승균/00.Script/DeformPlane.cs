@@ -34,6 +34,13 @@ public class DeformPlane : MonoBehaviour
             // EnemyBox 위치를 기준으로 반경 3 내에서 뚫기
             DeformThisPlane(other.transform.position, 0.6f);
         }
+
+        // 'Boss' 태그를 가진 객체가 충돌하면 범위 5로 변형
+        if (other.CompareTag("Boss"))
+        {
+            // 가로 길이 5, 세로 길이 1로 변형
+            DeformThisPlane(other.transform.position, 10f, 1f);
+        }
     }
 
     // Plane을 변형하는 함수 (기존)
@@ -73,4 +80,26 @@ public class DeformPlane : MonoBehaviour
         PlaneMesh.vertices = verts;
         PlaneMesh.RecalculateNormals(); // 법선 계산 (변형 후 메시 정상 표시)
     }
+
+    // Boss용 Deform 함수 (가로로 긴 영역으로 뚫기)
+    public void DeformThisPlane(Vector3 PositionToDeform, float deformWidth, float deformHeight)
+    {
+        PositionToDeform = transform.InverseTransformPoint(PositionToDeform);
+
+        for (int i = 0; i < verts.Length; i++)
+        {
+            // x와 z좌표 기준으로 범위 체크
+            float distX = Mathf.Abs(verts[i].x - PositionToDeform.x);
+            float distZ = Mathf.Abs(verts[i].z - PositionToDeform.z);
+
+            if (distX < deformWidth * 0.5f && distZ < deformHeight * 0.5f) // 범위 체크
+            {
+                verts[i] -= Vector3.up * Power; // 메시 변형
+            }
+        }
+
+        PlaneMesh.vertices = verts;
+        PlaneMesh.RecalculateNormals(); // 법선 계산 (변형 후 메시 정상 표시)
+    }
+
 }

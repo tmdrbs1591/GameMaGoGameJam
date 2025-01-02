@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,28 +14,39 @@ public class Enemy : MonoBehaviour
     [SerializeField] Material dieMaterial;
 
     public GameObject dieEffect;
+    public GameObject goods;
 
-    private Renderer ren;
+    public Slider hpbar;
+
+    bool isdie;
+    public Renderer ren;
     // Start is called before the first frame update
     void Start()
     {
-        ren = gameObject.GetComponent<Renderer>();
         currentHP = maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
+        hpbar.value = currentHP/maxHP;
         Die();
     }
 
     void Die()
     {
-        if (currentHP <= 0)
+        if (currentHP <= 0 && !isdie)
         {
             CameraShake.instance.ShakeCamera(12f, 0.5f);
             ren.material = dieMaterial;
             StartCoroutine(TimeSlow());
+
+            for (int i = 0; i < 5; i++)
+            {
+                Instantiate(goods, transform.position, Quaternion.identity);
+            }
+
+            isdie = true;
         }
     }
     private void OnDestroy()
