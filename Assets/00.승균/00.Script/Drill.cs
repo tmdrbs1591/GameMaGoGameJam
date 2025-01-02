@@ -187,6 +187,8 @@ public class Drill : MonoBehaviour
 
                     Destroy(damageTextScript.gameObject, 2f);
 
+                    AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
+
                     // 적에게 피해 주기
                     enemyScript.TakeDamage(damage);
                     Instantiate(hitPtc, collider.transform.position, Quaternion.identity);

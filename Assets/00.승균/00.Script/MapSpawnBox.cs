@@ -25,6 +25,8 @@ public class MapSpawnBox : MonoBehaviour
           var maps =  Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
             MapManager.instance.maps.Add(maps);
 
+            Destroy(gameObject);
+
         }
     }
 }
