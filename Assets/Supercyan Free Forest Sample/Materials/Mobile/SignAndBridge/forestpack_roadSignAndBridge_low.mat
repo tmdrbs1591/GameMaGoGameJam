@@ -143,7 +143,7 @@ Material:
     - _SColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4960996978658339172
+--- !u!114 &896373884663045832
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
