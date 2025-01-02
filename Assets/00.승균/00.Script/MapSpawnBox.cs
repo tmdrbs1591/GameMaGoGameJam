@@ -22,7 +22,8 @@ public class MapSpawnBox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Drill"))
         {
-            Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
+          var maps =  Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
+            MapManager.instance.maps.Add(maps);
 
         }
     }
