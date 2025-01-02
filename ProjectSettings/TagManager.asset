@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Goods
   - Boss
+  - MapSapwnCol
   layers:
   - Default
   - TransparentFX
