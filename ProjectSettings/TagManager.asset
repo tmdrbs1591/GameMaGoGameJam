@@ -12,6 +12,7 @@ TagManager:
   - MapSapwnCol
   - Crystal
   - EnemyBullet
+  - Wall
   layers:
   - Default
   - TransparentFX

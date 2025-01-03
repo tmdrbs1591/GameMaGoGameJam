@@ -406,6 +406,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 26661948}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &28394591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7478002235673758413, guid: 9a4da62a28a7f3a499db0e3059753b55,
+    type: 3}
+  m_PrefabInstance: {fileID: 866862188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &29972109 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7478002235673758413, guid: 9a4da62a28a7f3a499db0e3059753b55,
@@ -689,11 +695,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86e322c80ba5d94ea58d68c1f59936a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastLength: 6
   oriMoveSpeed: 17
   moveSpeed: 17
   rotationSpeed: 5
   hitPtc: {fileID: 2830776939019850870, guid: 5002475a2211bbf4591a409b0e196b74, type: 3}
-  attackBoxSize: {x: 4, y: 4.21, z: 2}
+  attackBoxSize: {x: 4, y: 8.83, z: 18.26}
   attackBoxPos: {fileID: 727917736}
   damageInterval: 0.07
   damageAmount: 1
@@ -708,11 +715,13 @@ MonoBehaviour:
   hitVolume: {fileID: 702462564}
   skillEft: {fileID: 29972109}
   hitEft: {fileID: 3478870661482642401, guid: bc9e8bd55c9f4e84f80f30ad36227bec, type: 3}
+  attackEffect: {fileID: 28394591}
   virtualCamera: {fileID: 2066179468}
   defaultZoom: 87
   zoomStep: 1.7
   minZoom: 10
   myDamageEft: {fileID: 1591255605}
+  AttackCooldownTime: 0.07
   dashCooldownTime: 1
   combo: 0
   comboText: {fileID: 316278997}
@@ -11412,6 +11421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireEnchantment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478002235673758413, guid: 9a4da62a28a7f3a499db0e3059753b55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7481510391306364147, guid: 9a4da62a28a7f3a499db0e3059753b55,
         type: 3}

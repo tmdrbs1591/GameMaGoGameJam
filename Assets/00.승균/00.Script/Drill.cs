@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 public class Drill : MonoBehaviour
 {
     Camera cam;
-
+     public float raycastLength = 3f; // Raycast의 길이
     public float oriMoveSpeed = 5f;  // 이동 속도
     public float moveSpeed = 5f;  // 이동 속도
     public float rotationSpeed = 5f;  // 회전 속도
@@ -25,6 +26,8 @@ public class Drill : MonoBehaviour
     [SerializeField] Slider hpSlider;
     [SerializeField] Slider dashSlider;
 
+    bool isSKill;
+
 
     private Coroutine damageCoroutine; // 피해 코루틴 저장용
 
@@ -36,6 +39,8 @@ public class Drill : MonoBehaviour
     [SerializeField] GameObject skillEft;
     [SerializeField] GameObject hitEft;
 
+    [SerializeField] GameObject attackEffect;
+
     bool isSkill;
 
     [Header("Cinemachine 설정")]
@@ -45,6 +50,9 @@ public class Drill : MonoBehaviour
     [SerializeField] private float minZoom = 10f; // 최소 줌 (FOV)
 
     [SerializeField] GameObject myDamageEft;
+
+    public float AttackCooldownTime = 0.1f; // 쿨타임 (초)
+    private float AttackNextTime = 0f; // 사용 가능 시점
 
     public float dashCooldownTime = 0.2f; // 쿨타임 (초)
     private float dashNextTime = 0f; // 사용 가능 시점
@@ -70,11 +78,41 @@ public class Drill : MonoBehaviour
             return;
         if (isCollidingWithEnemy)
             hitVolume.SetActive(true);
-        else 
-        hitVolume.SetActive(false);
+        else
+            hitVolume.SetActive(false);
+
+        if (Input.GetMouseButton(0))
+        {
+
+            attackEffect.SetActive(true);
+            // 상호작용 박스 내의 충돌체 확인
+            Collider[] colliders = Physics.OverlapBox(attackBoxPos.position, attackBoxSize / 2f);
+
+            foreach (Collider collider in colliders)
+            {
+                if (collider != null && collider.CompareTag("Enemy"))
+                {
+                    isCollidingWithEnemy = true;
+                    Debug.Log(isCollidingWithEnemy);
+                }
+
+            }
+            if (Time.time >= AttackNextTime)
+            {
+                Damage(damageAmount, attackBoxPos, attackBoxSize);  // 피해 주기
+                AttackNextTime = Time.time + AttackCooldownTime;
+            }
+
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isCollidingWithEnemy = false;
+            Debug.Log("ddd");
+            attackEffect.SetActive(false);
+        }
 
 
-        hpSlider.value = currentHP/maxHP;
+        hpSlider.value = currentHP / maxHP;
         comboText.text = combo.ToString() + "Kills";
         // 대쉬 쿨타임 슬라이더 값 계산 (1에서 0 사이로 보이게 함)
         if (Time.time < dashNextTime)
@@ -90,7 +128,7 @@ public class Drill : MonoBehaviour
 
         Skill();
         // 마우스 왼쪽 버튼 클릭 시에만 마우스 방향으로 이동
-        if (Input.GetMouseButton(0) && !isCollidingWithEnemy)
+        if (Input.GetMouseButton(1) && !isCollidingWithEnemy)
         {
             MoveTowardsMouseDirection();
             RotateAwayFromMouseDirection();  // 마우스 반대 방향으로 회전하는 함수
@@ -102,27 +140,50 @@ public class Drill : MonoBehaviour
             MoveDownSlowly();
         }
     }
-
     void MoveDownSlowly()
     {
-        if (isCollidingWithEnemy)
-            return;
-        // 현재 방향으로 아래로 천천히 이동
-        transform.position += transform.up * -moveSpeed * Time.deltaTime / 3;  // -moveSpeed로 아래 방향으로 이동
+        // Drill의 전방 방향을 기준으로 Raycast를 쏩니다.
+        RaycastHit hit;
+        Vector3 rayDirection = transform.up * -1;  // 아래 방향
+
+        if (Physics.Raycast(transform.position, rayDirection, out hit, raycastLength))
+        {
+            // "Wall" 태그를 가진 오브젝트와 충돌하면 이동을 멈춥니다.
+            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boss"))
+            {
+                Debug.Log("충돌: Wall");
+                Debug.DrawLine(transform.position, hit.point, Color.red); // 충돌 지점 표시
+                return;
+            }
+        }
+
+        // Raycast 시각화 (충돌 여부와 관계없이)
+        Debug.DrawLine(transform.position, transform.position + rayDirection * raycastLength, Color.green);
+
+        // Drill 이동 (현재 방향 기준)
+        transform.position += transform.up * -moveSpeed * Time.deltaTime / 3;
     }
-
-
     void Skill()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
 
             if (Time.time >= dashNextTime)
             {
-                StartCoroutine(SkillCor());
+                CameraShake.instance.ShakeCamera(10f, 0.6f);
+
+                AudioManager.instance.PlaySound(transform.position, 3, Random.Range(1.3f, 1.7f), 1f);
+
+                skillEft.SetActive(false);
+                skillEft.SetActive(true);
+                StartCoroutine(DashCor());
+
                 dashNextTime = Time.time + dashCooldownTime;
+
             }
-            }
+        }
     }
+
 
     public void ComboStart()
     {
@@ -146,9 +207,21 @@ public class Drill : MonoBehaviour
 
         // Drill 객체가 마우스를 향하는 방향 계산
         Vector3 direction = worldPos - transform.position;
-        direction.z = 0; // z축 고정 (2D 게임에서만 적용)
+        direction.z = 0; // z축 고정 (3D에서 z값을 고정)
 
-        // 방향으로 이동
+        // 이동하려는 방향으로 Raycast를 쏘아 "Wall"과 충돌하는지 확인
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, direction, out hit, direction.magnitude))
+        {
+            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boss"))
+            {
+                // "Wall"과 충돌하면 이동을 멈추기
+                Debug.Log("충돌: Wall");
+                return; // 이동을 멈춤
+            }
+        }
+
+        // Wall과 충돌하지 않으면 이동
         transform.position += direction.normalized * moveSpeed * Time.deltaTime;
     }
 
@@ -175,29 +248,17 @@ public class Drill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            isCollidingWithEnemy = true;
-            // 적과 처음 충돌 시 Damage Coroutine 시작
-            if (damageCoroutine == null)
+            if (isSKill)
             {
-                damageCoroutine = StartCoroutine(DamageOverTime(other.transform));
+                StartCoroutine(SkillCor());
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            isCollidingWithEnemy = false;
-            // 적과 충돌이 끝났을 때 Damage Coroutine 중지
-            if (damageCoroutine != null)
-            {
-                StopCoroutine(damageCoroutine);
-                damageCoroutine = null;
-            }
-        }
 
 
         if (other.CompareTag("EnemyBullet"))
@@ -220,7 +281,7 @@ public class Drill : MonoBehaviour
         moveSpeed /= 2;
 
         yield return new WaitForSeconds(0.5f);
-        
+
 
         myDamageEft.SetActive(false);
 
@@ -230,16 +291,7 @@ public class Drill : MonoBehaviour
 
 
     }
-    private IEnumerator DamageOverTime(Transform enemy)
-    {
-        // 'Enemy'와 닿아 있을 때 0.2초마다 피해를 주는 코루틴
-        while (true)
-        {
-            Damage(damageAmount, attackBoxPos, attackBoxSize);  // 피해 주기
 
-            yield return new WaitForSeconds(damageInterval);  // 0.2초 대기
-        }
-    }
 
     void Damage(float damage, Transform boxPos, Vector3 boxSize)
     {
@@ -248,7 +300,7 @@ public class Drill : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider != null && collider.CompareTag("Enemy"))
+            if (collider != null && collider.CompareTag("Enemy") || collider.CompareTag("Boss"))
             {
                 var enemyScript = collider.GetComponent<Enemy>();
 
@@ -303,7 +355,6 @@ public class Drill : MonoBehaviour
             float newFOV = Mathf.Max(currentFOV - zoomStep, minZoom);
             virtualCamera.m_Lens.FieldOfView = newFOV;
 
-            Debug.Log($"Camera Zoom Adjusted: {newFOV}");
         }
         else
         {
@@ -316,7 +367,6 @@ public class Drill : MonoBehaviour
         {
             // 기본 줌으로 복원
             virtualCamera.m_Lens.FieldOfView = defaultZoom;
-            Debug.Log($"Camera Zoom Reset to Default: {defaultZoom}");
         }
         else
         {
@@ -326,16 +376,28 @@ public class Drill : MonoBehaviour
 
     IEnumerator SkillCor()
     {
-        CameraShake.instance.ShakeCamera(10f, 0.6f);
 
-        AudioManager.instance.PlaySound(transform.position, 3, Random.Range(1.3f, 1.7f), 1f);
+
+
+        // 상호작용 박스 내의 충돌체 확인
+
+        isCollidingWithEnemy = true;
+        for (int i = 0; i < 14; i++)
+        {
+            Damage(damageAmount, attackBoxPos, attackBoxSize);  // 피해 주기
+            yield return new WaitForSeconds(0.05f);
+        }
+        isCollidingWithEnemy = false;
+
+    }
+
+    IEnumerator DashCor()
+    {
+        isSKill = true;
         moveSpeed = 60;
-        skillEft.SetActive(false);
-        skillEft.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-
+        isSKill = false;
         moveSpeed = 17;
-
     }
     private void OnDrawGizmos()
     {

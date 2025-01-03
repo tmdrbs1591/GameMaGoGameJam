@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
             if (currentY < lowestY)
             {
                 score += 0.2f;
-                Debug.Log("Score: " + score);
 
                 // 최저 y값 갱신
                 lowestY = currentY;
