@@ -8,7 +8,8 @@ public enum Type
 {
     Enemy,
     CryStal,
-    Wall
+    Wall,
+    Shop
 }
 public class Enemy : MonoBehaviour
 {
@@ -57,6 +58,11 @@ public class Enemy : MonoBehaviour
 
             GameManager.instance.drill.comboTextAnim.SetTrigger("Kill");
             GameManager.instance.drill.ComboStart();
+            if (currentType == Type.Shop)
+            {
+                GameManager.instance.OpenShop();
+                Debug.Log("¤·¤·¤·");
+            }
             for (int i = 0; i < 5; i++)
             {
                 if (goods == null)
@@ -67,6 +73,7 @@ public class Enemy : MonoBehaviour
             {
                 AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
             }
+      
             isdie = true;
         }
     }
@@ -85,11 +92,15 @@ public class Enemy : MonoBehaviour
         {
             AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
         }
-        if (currentType == Type.CryStal)
+        else if (currentType == Type.CryStal)
         {
             AudioManager.instance.PlaySound(transform.position, 1, Random.Range(1.3f, 1.7f), 1f);
         }
-        if (currentType == Type.Wall)
+       else  if (currentType == Type.Wall)
+        {
+            AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
+        }
+        else
         {
             AudioManager.instance.PlaySound(transform.position, 0, Random.Range(1.3f, 1.7f), 1f);
         }
