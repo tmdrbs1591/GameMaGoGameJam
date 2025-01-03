@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8531603406360011235}
   - component: {fileID: 1199174638090548384}
   - component: {fileID: 1398737950689213878}
+  - component: {fileID: -4370540368457315746}
+  - component: {fileID: 5641549460046407829}
   m_Layer: 0
   m_Name: CryStal
   m_TagString: Crystal
@@ -239,6 +241,32 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-4370540368457315746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278743369337178926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d001fde8e3c7446bc5234ed04b356c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: e2cf1f45d8774ad469a4b13d3304ebdc, type: 2}
+--- !u!114 &5641549460046407829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278743369337178926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6c43f0c7a354143b7284e9e9572e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: e2cf1f45d8774ad469a4b13d3304ebdc, type: 2}
 --- !u!1001 &1001863876875825878
 PrefabInstance:
   m_ObjectHideFlags: 0

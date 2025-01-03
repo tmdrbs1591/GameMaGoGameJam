@@ -10,8 +10,13 @@ public class ItemPickUp : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnMouseDown()
+  
+    private void OnTriggerEnter(Collider other)
     {
-        PickUp();
+        if (other.gameObject.CompareTag("Drill"))
+        {
+            PickUp();
+
+        }
     }
 }

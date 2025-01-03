@@ -6,6 +6,9 @@ public class MapSpawnBox : MonoBehaviour
 {
     [SerializeField] Transform mapSpawnPos;
     [SerializeField] GameObject[] map;
+
+    [SerializeField] GameObject nextMap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +25,20 @@ public class MapSpawnBox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Drill"))
         {
-          var maps =  Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
-            MapManager.instance.maps.Add(maps);
+     
+            MapManager.instance.currentMap++;
+
+            if(MapManager.instance.currentMap % 5 == 0)
+            {
+                var nextMaps = Instantiate(nextMap, mapSpawnPos.transform.position, Quaternion.identity);
+                MapManager.instance.maps.Add(nextMaps);
+            }
+            else
+            {
+                var maps = Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
+                MapManager.instance.maps.Add(maps);
+
+            }
 
             Destroy(gameObject);
 
