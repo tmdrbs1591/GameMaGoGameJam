@@ -8,6 +8,7 @@ public class Item : ScriptableObject
     public int value;
     public Sprite icon;
     public ItemType itemType;
+    public string Description;
     public int quantity; // 수량 관리
 
     public enum ItemType

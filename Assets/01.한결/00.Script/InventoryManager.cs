@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -17,6 +18,34 @@ public class InventoryManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    public Item GetItemById(int id)
+    {
+        return Items.Find(item => item.id == id);  // 아이템을 찾고 반환
+    }
+
+    public bool SpendItem(int itemId, int quantity)
+    {
+        Item item = GetItemById(itemId);  // 아이템 찾기
+        if (item != null && item.quantity >= quantity)  // 아이템 수량 확인
+        {
+            item.quantity -= quantity;  // 수량 차감
+
+            // 수량이 0이 되면 아이템을 목록에서 삭제
+            if (item.quantity <= 0)
+            {
+                Items.Remove(item);  // 아이템을 목록에서 제거
+            }
+
+            return true;
+        }
+        else
+        {
+            Debug.Log("아이템이 부족하거나 존재하지 않습니다.");
+            return false;
+        }
+    }
+
 
     // 아이템을 추가합니다.
     public void Add(Item item)
