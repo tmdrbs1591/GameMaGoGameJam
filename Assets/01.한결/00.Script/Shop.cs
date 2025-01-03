@@ -34,6 +34,10 @@ public class Shop : MonoBehaviour
     private int speedUpgradeCost = 7;
     private int damageUpgradeCost = 10;
 
+    public Sprite HpPotionSprite;
+    public Sprite SpeedPotionSprite;
+    public Sprite DamagePotionSprite;
+
     private void Start()
     {
         shopPanel.SetActive(false);
@@ -128,7 +132,8 @@ public class Shop : MonoBehaviour
                 itemName = "HealthPotion",
                 value = 20,
                 quantity = 1,
-                itemType = Item.ItemType.Health_Potion
+                itemType = Item.ItemType.Health_Potion,
+                icon = HpPotionSprite
             };
             inventoryManager.Add(hpPotion);
             Debug.Log("체력 포션 구매");
@@ -150,7 +155,8 @@ public class Shop : MonoBehaviour
                 itemName = "SpeedPotion",
                 value = 3,
                 quantity = 1,
-                itemType = Item.ItemType.Speed_Potion
+                itemType = Item.ItemType.Speed_Potion,
+                icon = SpeedPotionSprite
             };
             inventoryManager.Add(speedPotion);
             Debug.Log("스피드 포션 구매");
@@ -171,7 +177,8 @@ public class Shop : MonoBehaviour
                 itemName = "DamagePotion",
                 value = 1,
                 quantity = 1,
-                itemType = Item.ItemType.Damage_Potion
+                itemType = Item.ItemType.Damage_Potion,
+                icon = DamagePotionSprite
             };
             inventoryManager.Add(damagePotion);
             Debug.Log("공격력 포션 구매");
