@@ -27,15 +27,11 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInven)
         {
-            inVenPanel.SetActive(true);
-            isInven = true;
-            ListItems();
+            InvenOpen();
         }
         else if (Input.GetKeyDown(KeyCode.E) && isInven)
         {
-            isInven = false;
-            inVenPanel.SetActive(false);
-
+         InvenClose();
         }
        
     
@@ -62,6 +58,18 @@ public class InventoryManager : MonoBehaviour
     
     }
 
+    public void InvenOpen()
+    {
+        inVenPanel.SetActive(true);
+        isInven = true;
+        ListItems();
+    }
+    public void InvenClose()
+    {
+        isInven = false;
+        inVenPanel.SetActive(false);
+
+    }
     public Item GetItemById(int id)
     {
         return Items.Find(item => item.id == id);  // 아이템을 찾고 반환

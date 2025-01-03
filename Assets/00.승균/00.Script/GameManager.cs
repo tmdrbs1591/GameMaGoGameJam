@@ -60,7 +60,9 @@ public class GameManager : MonoBehaviour
     public void OpenShop()
     {
         shopPanel.SetActive(true);
+        InventoryManager.Instance.InvenOpen();
         StartCoroutine(TimeScale());
+        
     }
     public void CloseShop()
     {
