@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class DrillGold : MonoBehaviour
 {
-    public int gold;
     public int level = 1; // 시작 레벨
     public float maxExp = 10; // 최초 필요 경험치
     public float currentExp;
@@ -26,7 +25,6 @@ public class DrillGold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goldText.text = "DM : " + gold.ToString();
         levelText.text = "LV." + level.ToString();
         expSlider.value = currentExp / maxExp;
     }
@@ -36,10 +34,6 @@ public class DrillGold : MonoBehaviour
         if (other.gameObject.CompareTag("Goods"))
         {
             GainExp(1); // 아이템 획득 시 경험치 증가 (예: 5)
-        }
-        if (other.gameObject.CompareTag("Crystal"))
-        {
-            gold += 10;
         }
     }
         private void GainExp(float amount)
@@ -67,7 +61,6 @@ public class DrillGold : MonoBehaviour
 
     private void UpdateUI()
     {
-        goldText.text = "DM : " + gold.ToString();
         levelText.text = "LV. " + level.ToString();
     }
 }
