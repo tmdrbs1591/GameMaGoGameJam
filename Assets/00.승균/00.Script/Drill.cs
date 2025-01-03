@@ -144,24 +144,7 @@ public class Drill : MonoBehaviour
     }
     void MoveDownSlowly()
     {
-        // Drill의 전방 방향을 기준으로 Raycast를 쏩니다.
-        RaycastHit hit;
-        Vector3 rayDirection = transform.up * -1;  // 아래 방향
-
-        if (Physics.Raycast(transform.position, rayDirection, out hit, raycastLength))
-        {
-            // "Wall" 태그를 가진 오브젝트와 충돌하면 이동을 멈춥니다.
-            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boss"))
-            {
-                Debug.Log("충돌: Wall");
-                Debug.DrawLine(transform.position, hit.point, Color.red); // 충돌 지점 표시
-                return;
-            }
-        }
-
-        // Raycast 시각화 (충돌 여부와 관계없이)
-        Debug.DrawLine(transform.position, transform.position + rayDirection * raycastLength, Color.green);
-
+      
         // Drill 이동 (현재 방향 기준)
         rb.velocity = transform.up * -moveSpeed / 3;
 
@@ -212,17 +195,6 @@ public class Drill : MonoBehaviour
         Vector3 direction = worldPos - transform.position;
         direction.z = 0; // z축 고정 (3D에서 z값을 고정)
 
-        // 이동하려는 방향으로 Raycast를 쏘아 "Wall"과 충돌하는지 확인
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, direction.magnitude))
-        {
-            if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Boss"))
-            {
-                // "Wall"과 충돌하면 이동을 멈추기
-                Debug.Log("충돌: Wall");
-                return; // 이동을 멈춤
-            }
-        }
 
         // Wall과 충돌하지 않으면 이동
         rb.velocity = direction.normalized * moveSpeed;
@@ -351,7 +323,9 @@ public class Drill : MonoBehaviour
             }
         }
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {   
+    }
     void AdjustCameraZoom()
     {
         if (virtualCamera != null)

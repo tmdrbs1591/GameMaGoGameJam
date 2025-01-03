@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
-    public GameObject driil;
+    public GameObject drills;
     public GameObject Drill1;
     public GameObject Drill2;
 
@@ -25,6 +26,7 @@ public class Shop : MonoBehaviour
     private Vector3 detectionBoxSize = new Vector3(5f, 5f, 5f);
     [SerializeField]
     private bool isDrillDetected = false;
+
 
     [SerializeField]
     private string targetTag = "Drill";
@@ -56,7 +58,6 @@ public class Shop : MonoBehaviour
         shopPanel.SetActive(false);
         inventoryManager = FindObjectOfType<InventoryManager>();  // InventoryManager 찾기
         drill = FindObjectOfType<Drill>();
-        
 
         AddButtonListeners();
     }
@@ -145,7 +146,7 @@ public class Shop : MonoBehaviour
             {
                 id = 3,
                 itemName = "HealthPotion",
-                value = 20,
+                value = 2,
                 quantity = 1,
                 itemType = Item.ItemType.Health_Potion,
                 icon = HpPotionSprite
@@ -209,7 +210,7 @@ public class Shop : MonoBehaviour
         if (inventoryManager.SpendItem(1, hpUpgradeCost))  // 아이템ID=1은 크리스탈
         {
             hpUpgradeCost += 2;
-            drill.maxHP += 10;
+            drill.maxHP += 3;
             Debug.Log("드릴 최대 체력 업");
         }
         else
@@ -223,7 +224,7 @@ public class Shop : MonoBehaviour
         if (inventoryManager.SpendItem(1, speedUpgradeCost))  // 아이템ID=1은 크리스탈
         {
             drill.moveSpeed += 0.5f;
-            speedUpgradeCost += 3;
+            speedUpgradeCost += 2;
             Debug.Log("드릴 최대 속도 업");
         }
         else
@@ -250,9 +251,12 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(5, drillUpgrade1Cost))  // 아이템ID=5은 루비
         {
-            driil.SetActive(false);
+            drills.SetActive(false);
             Drill1.SetActive(true);
             Drill2.SetActive(false);
+            drill.maxHP += 20;
+            drill.damageAmount = 1;
+            drill.moveSpeed = 0.5f;
             Debug.Log("드릴 단계 업");
         }
         else
@@ -267,7 +271,10 @@ public class Shop : MonoBehaviour
         {
             Drill1.SetActive(false);
             Drill2.SetActive(true);
-            driil.SetActive(false);
+            drills.SetActive(false);
+            drill.maxHP += 50;
+            drill.damageAmount = 3;
+            drill.moveSpeed = 1;
             Debug.Log("드릴 단계 업");
         }
         else
@@ -276,4 +283,6 @@ public class Shop : MonoBehaviour
         }
     }
     #endregion
+
+    
 }

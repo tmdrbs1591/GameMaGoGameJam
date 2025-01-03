@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+
 
 public class InventoryItemController : MonoBehaviour
 {
@@ -7,12 +9,21 @@ public class InventoryItemController : MonoBehaviour
     public Button RemoveButton;
     private Drill drill;
 
+    private float originHealth;
+    private float originSpeed;
+    private float originDamage;
+
+
     private void Awake()
     {
         drill = FindObjectOfType<Drill>();
+
+        originDamage = drill.damageAmount;
+        originHealth = drill.currentHP;
+        originSpeed = drill.moveSpeed;
     }
 
-   
+
 
     // 이 메서드를 사용하여 아이템을 설정합니다.
     public void Add(Item newItem)
@@ -39,14 +50,14 @@ public class InventoryItemController : MonoBehaviour
                 return;
 
             case Item.ItemType.Health_Potion:
-                drill.currentHP += item.value;
+                StartCoroutine(IncreaseHealth());
                 break;
 
             case Item.ItemType.Speed_Potion:
-                drill.moveSpeed += item.value;
+                StartCoroutine(IncreaseSpeed());
                 break;
             case Item.ItemType.Damage_Potion:
-                drill.damageAmount += item.value;
+                StartCoroutine(IncreaseDamage());
                 break;
 
         }
@@ -66,5 +77,25 @@ public class InventoryItemController : MonoBehaviour
 
         InventoryManager.Instance.Remove(item); // 인벤토리에서 아이템 제거
         Destroy(gameObject); // UI에서 아이템 제거
+    }
+
+    private IEnumerator IncreaseHealth()
+    {
+        drill.currentHP += item.value;
+        yield return null;
+    }
+
+    private IEnumerator IncreaseSpeed()
+    {
+        drill.moveSpeed += item.value;
+        yield return new WaitForSeconds(3);
+        drill.moveSpeed = originSpeed;
+    }
+
+    private IEnumerator IncreaseDamage()
+    {
+        drill.damageAmount += item.value;
+        yield return new WaitForSeconds(3);
+        drill.damageAmount = originDamage;
     }
 }
