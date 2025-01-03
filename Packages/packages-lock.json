@@ -27,7 +27,7 @@
     },
     "com.unity.2d.common": {
       "version": "8.0.1",
-      "depth": 2,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.7.3",
@@ -58,7 +58,7 @@
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "builtin",
       "dependencies": {}
     },

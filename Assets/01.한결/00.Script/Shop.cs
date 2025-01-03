@@ -41,6 +41,11 @@ public class Shop : MonoBehaviour
     public Sprite HpPotionSprite;
     public Sprite SpeedPotionSprite;
     public Sprite DamagePotionSprite;
+    public Sprite HpUpgradeSprite;
+    public Sprite DamageUpgradeSprite;
+    public Sprite SpeedUpgradeSprite;
+    public Sprite Drill1Sprite;
+    public Sprite Drill2Sprite;
 
     private void Start()
     {
@@ -63,17 +68,17 @@ public class Shop : MonoBehaviour
 
     private void AddButtonListeners()
     {
-        AddToolTipEvents(hpPotion, "체력 포션", $"Cost: {hpPotionCost} Crystals");
-        AddToolTipEvents(speedPotion, "스피드 포션", $"Cost: {speedPotionCost} Crystals");
-        AddToolTipEvents(damagePotion, "공격력 포션", $"Cost: {damagePotionCost} Crystals");
-        AddToolTipEvents(hpUpgrade, "드릴 최대 체력 증가", $"Cost: {hpUpgradeCost} Crystals");
-        AddToolTipEvents(speedUpgrade, "드릴 최대 속도 증가", $"Cost: {speedUpgradeCost} Crystals");
-        AddToolTipEvents(damageUpgrade, "드릴 최대 공격력 증가", $"Cost: {damageUpgradeCost} Crystals");
-        AddToolTipEvents(drillUpgrade1, "드릴 1단계 강화", $"Cost: {drillUpgrade1Cost} Ruby");
-        AddToolTipEvents(drillUpgrade2, "드릴 2단계 강화", $"Cost: {drillUpgrade2Cost} Ruby");
+        AddToolTipEvents(hpPotion, "체력 포션", $"Cost: {hpPotionCost} Crystals", HpPotionSprite);
+        AddToolTipEvents(speedPotion, "스피드 포션", $"Cost: {speedPotionCost} Crystals", SpeedPotionSprite);
+        AddToolTipEvents(damagePotion, "공격력 포션", $"Cost: {damagePotionCost} Crystals", DamagePotionSprite);
+        AddToolTipEvents(hpUpgrade, "드릴 최대 체력 증가", $"Cost: {hpUpgradeCost} Crystals", HpUpgradeSprite);
+        AddToolTipEvents(speedUpgrade, "드릴 최대 속도 증가", $"Cost: {speedUpgradeCost} Crystals", SpeedUpgradeSprite);
+        AddToolTipEvents(damageUpgrade, "드릴 최대 공격력 증가", $"Cost: {damageUpgradeCost} Crystals", DamageUpgradeSprite);
+        AddToolTipEvents(drillUpgrade1, "드릴 1단계 강화", $"Cost: {drillUpgrade1Cost} Ruby", Drill1Sprite);
+        AddToolTipEvents(drillUpgrade2, "드릴 2단계 강화", $"Cost: {drillUpgrade2Cost} Ruby", Drill2Sprite);
     }
 
-    private void AddToolTipEvents(Button button, string title, string description)
+    private void AddToolTipEvents(Button button, string title, string description, Sprite image)
     {
         EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
 
@@ -83,7 +88,7 @@ public class Shop : MonoBehaviour
         };
         pointerEnter.callback.AddListener((_) =>
         {
-            toolTip.SetupToolTip(title, description);
+            toolTip.SetupToolTip(title, description, image);
             toolTip.Show();
         });
 
@@ -200,6 +205,7 @@ public class Shop : MonoBehaviour
         if (inventoryManager.SpendItem(1, hpUpgradeCost))  // 아이템ID=1은 크리스탈
         {
             hpUpgradeCost += 2;
+            drill.maxHP += 10;
             Debug.Log("드릴 최대 체력 업");
         }
         else
@@ -212,6 +218,7 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, speedUpgradeCost))  // 아이템ID=1은 크리스탈
         {
+            drill.moveSpeed += 0.5f;
             speedUpgradeCost += 3;
             Debug.Log("드릴 최대 속도 업");
         }
@@ -225,6 +232,7 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, damageUpgradeCost))  // 아이템ID=1은 크리스탈
         {
+            drill.damageAmount += 0.25f;
             damageUpgradeCost += 5;
             Debug.Log("드릴 최대 공격력 업");
         }
