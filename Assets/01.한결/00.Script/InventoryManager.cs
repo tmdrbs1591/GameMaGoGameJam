@@ -14,6 +14,10 @@ public class InventoryManager : MonoBehaviour
 
     public Toggle EnableRemove;  // 아이템 삭제 여부를 조정하는 Toggle
 
+    public GameObject inVenPanel;
+
+    bool isInven;
+
     private void Awake()
     {
         Instance = this;
@@ -21,25 +25,17 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) // 1번 키 눌렀을 때
+        if (Input.GetKeyDown(KeyCode.E) && !isInven)
         {
-            UseItemFromInventory(0);  // 첫 번째 아이템 사용
+            inVenPanel.SetActive(true);
+            isInven = true;
+            ListItems();
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2)) // 2번 키 눌렀을 때
+        else if (Input.GetKeyDown(KeyCode.E) && isInven)
         {
-            UseItemFromInventory(1);  // 두 번째 아이템 사용
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3)) // 3번 키 눌렀을 때
-        {
-            UseItemFromInventory(2);  // 두 번째 아이템 사용
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4)) // 4번 키 눌렀을 때
-        {
-            UseItemFromInventory(3);  // 두 번째 아이템 사용
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5)) // 5번 키 눌렀을 때
-        {
-            UseItemFromInventory(4);  // 두 번째 아이템 사용
+            isInven = false;
+            inVenPanel.SetActive(false);
+
         }
     }
 
@@ -202,20 +198,6 @@ public class InventoryManager : MonoBehaviour
         foreach (Transform item in ItemContent)
         {
             item.Find("RemoveButton").gameObject.SetActive(EnableRemove.isOn);
-        }
-    }
-
-    public void UseItemFromInventory(int index)
-    {
-        if (index >= 0 && index < Items.Count)
-        {
-            var item = Items[index];
-            var itemController = ItemContent.GetChild(index).GetComponent<InventoryItemController>();
-            itemController.UseItem();
-        }
-        else
-        {
-            Debug.Log("해당 인덱스에 아이템이 없습니다.");
         }
     }
 }

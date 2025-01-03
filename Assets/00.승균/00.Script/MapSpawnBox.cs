@@ -16,7 +16,7 @@ public class MapSpawnBox : MonoBehaviour
     void Start()
     {
         // 4분의 1 확률로 상점 생성
-        if (Random.value <= 0.25f)
+        if (Random.value <= 1f)
         {
             Instantiate(shopPrefabs, shopSpawnPos.position, Quaternion.identity);
         }
