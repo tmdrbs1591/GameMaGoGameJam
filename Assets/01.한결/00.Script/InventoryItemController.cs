@@ -12,6 +12,8 @@ public class InventoryItemController : MonoBehaviour
         drill = FindObjectOfType<Drill>();
     }
 
+   
+
     // 이 메서드를 사용하여 아이템을 설정합니다.
     public void Add(Item newItem)
     {

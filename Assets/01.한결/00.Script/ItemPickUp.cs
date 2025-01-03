@@ -16,7 +16,6 @@ public class ItemPickUp : MonoBehaviour
         if (other.gameObject.CompareTag("Drill"))
         {
             PickUp();
-
         }
     }
 }
