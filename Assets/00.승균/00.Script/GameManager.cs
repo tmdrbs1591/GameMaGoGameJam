@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text text;
 
     public GameObject shopPanel;
+    public GameObject clearPanel;
     public float score;
 
     private float lowestY; // 드릴의 최저 y값 저장

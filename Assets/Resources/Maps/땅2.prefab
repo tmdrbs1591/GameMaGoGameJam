@@ -2272,8 +2272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentType: 2
-  maxHP: 50
-  currentHP: 50
+  maxHP: 20
+  currentHP: 20
   dieMaterial: {fileID: 0}
   dieEffect: {fileID: 0}
   goods: {fileID: 0}

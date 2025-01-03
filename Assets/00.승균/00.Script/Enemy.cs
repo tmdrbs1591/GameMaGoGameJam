@@ -105,6 +105,12 @@ public class Enemy : MonoBehaviour
             GameManager.instance.OpenShop();
             Debug.Log("ししし");
         }
+
+        else if (currentType == Type.Boss)
+        {
+            GameManager.instance.clearPanel.SetActive(true);
+            Debug.Log("ししし");
+        }
     }
     public void TakeDamage(float damage)
     {
