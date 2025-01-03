@@ -32,16 +32,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Stun()
-    {
-        StartCoroutine(TongueCor());
-    }
-    IEnumerator TongueCor()
-    {
-        isDamageTrue = true;
-        yield return new WaitForSeconds(4f);
-        isDamageTrue = false;
-    }
+  
+ 
     void Update()
     {
 
@@ -67,7 +59,16 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    public void Stun()
+    {
+        StartCoroutine(TongueCor());
+    }
+    IEnumerator TongueCor()
+    {
+        isDamageTrue = true;
+        yield return new WaitForSeconds(4f);
+        isDamageTrue = false;
+    }
     public void OpenShop()
     {
         shopPanel.SetActive(true);

@@ -22,6 +22,9 @@ public class Boss : MonoBehaviour
  
     private void Update()
     {
+        if (GameManager.instance.isDamageTrue)
+            return;
+        
         // 보스가 아래로 내려가는 함수
         transform.position += Vector3.down * moveSpeed * Time.deltaTime;
 
@@ -71,7 +74,7 @@ public class Boss : MonoBehaviour
         if (tongue != null)
         {
             // 현재 보스의 위치에서 tongue 생성
-            Instantiate(tongue, tonguePos.transform.position + new Vector3 (0, -20, 0), Quaternion.identity);
+           Destroy( Instantiate(tongue, tonguePos.transform.position + new Vector3 (0, -20, 0), Quaternion.identity),7);
         }
         else
         {

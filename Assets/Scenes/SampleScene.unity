@@ -734,7 +734,7 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40295824}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 69c2b567eab80bf4e8df81fe53ab2dc0, type: 2}
   m_InitialState: 1
@@ -2195,7 +2195,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 72.59448
+  field of view: 79.0869
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2221,8 +2221,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.005910605, y: -0.9880488, z: -0.14895517, w: 0.03920621}
-  m_LocalPosition: {x: -1.56, y: 5.2, z: 1.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.35205, z: -15.0946}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19882,7 +19882,7 @@ MonoBehaviour:
     type: 3}
   tongue: {fileID: 3879222822946589012, guid: ebf1250cded346745b7a4c06f7adc7d6, type: 3}
   fireInterval: 4
-  tongueInterval: 30
+  tongueInterval: 10
 --- !u!1 &1409686666
 GameObject:
   m_ObjectHideFlags: 0
@@ -24500,8 +24500,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentType: 4
-  maxHP: 100
-  currentHP: 100
+  maxHP: 500
+  currentHP: 500
   dieMaterial: {fileID: 0}
   dieEffect: {fileID: 0}
   goods: {fileID: 0}

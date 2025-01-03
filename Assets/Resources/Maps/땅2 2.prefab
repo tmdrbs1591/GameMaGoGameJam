@@ -1319,7 +1319,7 @@ MonoBehaviour:
   mapSpawnPos: {fileID: 6264998306153779408}
   map:
   - {fileID: 4438876545775034084, guid: ebc80a9e7091046418375763f217d477, type: 3}
-  nextMap: {fileID: 0}
+  nextMap: {fileID: 4438876545775034084, guid: ebc80a9e7091046418375763f217d477, type: 3}
   shopSpawnPos: {fileID: 6005306045071160661}
   shopPrefabs: {fileID: 1667747960142071279, guid: fd7961a9547dd1a4eb4b5b390e9c1e7c,
     type: 3}

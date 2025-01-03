@@ -33,7 +33,6 @@ public class Enemy : MonoBehaviour
 
 
 
-    Enemy TongueEnemy;
 
     
     // Start is called before the first frame update
@@ -71,34 +70,41 @@ public class Enemy : MonoBehaviour
 
             GameManager.instance.drill.comboTextAnim.SetTrigger("Kill");
             GameManager.instance.drill.ComboStart();
-            if (currentType == Type.Shop)
-            {
-                GameManager.instance.OpenShop();
-                Debug.Log("ししし");
-            }
+
             for (int i = 0; i < 5; i++)
             {
                 if (goods == null)
                     return;
                 Instantiate(goods, transform.position, Quaternion.identity);
             }
-            if (currentType == Type.CryStal)
+           
+             if (currentType == Type.CryStal)
             {
                 AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
             }
-            if (currentType == Type.Tongue)
-            {
-                GameManager.instance.Stun();
-                AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
-            }
+         
             
                   isdie = true;
         }
     }
+
+    
     private void OnDestroy()
     {
         GameManager.instance.drill.isCollidingWithEnemy = false;
         GameManager.instance.drill.ResetCameraZoom();
+
+      if (currentType == Type.Tongue)
+        {
+            Debug.Log("宋製");
+            GameManager.instance.Stun();
+            AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
+        }
+        else if (currentType == Type.Shop)
+        {
+            GameManager.instance.OpenShop();
+            Debug.Log("ししし");
+        }
     }
     public void TakeDamage(float damage)
     {
@@ -133,6 +139,11 @@ public class Enemy : MonoBehaviour
         if (goods != null)
         Destroy(Instantiate(dieEffect, transform.position, Quaternion.identity), 3f);
         Destroy(gameObject);
+
+        if (currentType == Type.Tongue)
+        {
+            Destroy(transform.parent.gameObject);
+        }   
 
     }
 

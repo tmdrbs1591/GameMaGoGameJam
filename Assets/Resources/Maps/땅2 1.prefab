@@ -1290,7 +1290,8 @@ MonoBehaviour:
   - {fileID: 4438876545775034084, guid: 4c18dba0c11f5474c93692a070c6fc8a, type: 3}
   nextMap: {fileID: 0}
   shopSpawnPos: {fileID: 0}
-  shopPrefabs: {fileID: 0}
+  shopPrefabs: {fileID: 1667747960142071279, guid: fd7961a9547dd1a4eb4b5b390e9c1e7c,
+    type: 3}
 --- !u!1 &2067777699464662104
 GameObject:
   m_ObjectHideFlags: 0
