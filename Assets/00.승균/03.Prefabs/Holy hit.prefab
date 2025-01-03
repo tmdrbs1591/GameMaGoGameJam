@@ -9796,6 +9796,7 @@ GameObject:
   - component: {fileID: 5358615071063421893}
   - component: {fileID: 2158652924326022985}
   - component: {fileID: 7833250366226831868}
+  - component: {fileID: 7657753903746245903}
   m_Layer: 0
   m_Name: Holy hit
   m_TagString: Untagged
@@ -14686,6 +14687,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7657753903746245903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478870661482642401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30616687c7074ec4fba584bd03e9e2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsName: HitEft
 --- !u!1 &8582922905275308864
 GameObject:
   m_ObjectHideFlags: 0

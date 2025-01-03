@@ -4920,6 +4920,7 @@ GameObject:
   - component: {fileID: 2726368868978181954}
   - component: {fileID: 8794942205331571845}
   - component: {fileID: 374505484896722930}
+  - component: {fileID: 4944900160884129692}
   m_Layer: 7
   m_Name: Hit Ptc
   m_TagString: Untagged
@@ -9819,3 +9820,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4944900160884129692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2830776939019850870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30616687c7074ec4fba584bd03e9e2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsName: HitPtc

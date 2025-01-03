@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -279,9 +280,9 @@ public class Drill : MonoBehaviour
 
                     // 적에게 피해 주기
                     enemyScript.TakeDamage(damage);
-                    Instantiate(hitPtc, collider.transform.position, Quaternion.identity);
-                    Instantiate(hitEft, eftPos.transform.position, Quaternion.identity);
 
+                    ObjectPool.SpawnFromPool("HitPtc", collider.transform.position, Quaternion.identity);
+                    ObjectPool.SpawnFromPool("HitEft", eftPos.transform.position, Quaternion.identity);
                     Debug.Log("공격!");
 
                     // 시네머신 카메라 줌 감소
