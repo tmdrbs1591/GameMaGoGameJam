@@ -19,7 +19,7 @@ public class Drill : MonoBehaviour
     [SerializeField] Transform attackBoxPos; // 공격 위치
     [SerializeField] float damageInterval = 0.2f; // 피해를 줄 간격 (0.2초)
     [SerializeField] public float damageAmount = 10f; // 피해량
-    [SerializeField] float currentHP;
+    [SerializeField] public float currentHP;
     [SerializeField] float maxHP;
     [SerializeField] Slider hpSlider;
     [SerializeField] Slider dashSlider;

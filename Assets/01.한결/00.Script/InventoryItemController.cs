@@ -5,6 +5,12 @@ public class InventoryItemController : MonoBehaviour
 {
     private Item item;
     public Button RemoveButton;
+    private Drill drill;
+
+    private void Awake()
+    {
+        drill = FindObjectOfType<Drill>();
+    }
 
     // 이 메서드를 사용하여 아이템을 설정합니다.
     public void Add(Item newItem)
@@ -28,12 +34,16 @@ public class InventoryItemController : MonoBehaviour
                 return;
 
             case Item.ItemType.Health_Potion:
-                Player2.instance.IncreaseHealth(item.value);
+                drill.currentHP += item.value;
                 break;
 
-            case Item.ItemType.Exp_Potion:
-                Player2.instance.IncreaseExp(item.value);
+            case Item.ItemType.Speed_Potion:
+                drill.moveSpeed += item.value;
                 break;
+            case Item.ItemType.Damage_Potion:
+                drill.damageAmount += item.value;
+                break;
+
         }
 
         // 사용 후 아이템 제거

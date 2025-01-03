@@ -15,6 +15,7 @@ public class Item : ScriptableObject
     {
         Crystal,
         Health_Potion,
-        Exp_Potion
+        Speed_Potion,
+        Damage_Potion
     }
 }

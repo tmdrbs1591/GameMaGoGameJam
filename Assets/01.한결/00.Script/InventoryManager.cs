@@ -24,18 +24,60 @@ public class InventoryManager : MonoBehaviour
         return Items.Find(item => item.id == id);  // 아이템을 찾고 반환
     }
 
+    public void CreateAndAddItem(int id, string name, int value, Sprite icon, string type)
+    {
+        // 문자열을 열거형으로 변환
+        if (!System.Enum.TryParse(type, out Item.ItemType parsedType))
+        {
+            Debug.LogError($"잘못된 아이템 타입: {type}");
+            return;
+        }
+
+        // 기존 아이템 확인
+        var existingItem = Items.Find(i => i.id == id);
+
+        if (existingItem != null)
+        {
+            // 기존 아이템이 있으면 수량 증가
+            existingItem.quantity += 1;
+        }
+        else
+        {
+            // 새로운 아이템 생성
+            var newItem = new Item
+            {
+                id = id,
+                itemName = name,
+                value = value,
+                icon = icon,
+                itemType = parsedType, // 변환된 열거형 타입 사용
+                quantity = 1
+            };
+
+            // 아이템 리스트에 추가
+            Items.Add(newItem);
+        }
+
+        // UI 갱신
+        ListItems();
+    }
+
+
     public bool SpendItem(int itemId, int quantity)
     {
-        Item item = GetItemById(itemId);  // 아이템 찾기
-        if (item != null && item.quantity >= quantity)  // 아이템 수량 확인
+        Item item = GetItemById(itemId); // 아이템 찾기
+        if (item != null && item.quantity >= quantity) // 아이템 수량 확인
         {
-            item.quantity -= quantity;  // 수량 차감
+            item.quantity -= quantity; // 수량 차감
 
             // 수량이 0이 되면 아이템을 목록에서 삭제
             if (item.quantity <= 0)
             {
-                Items.Remove(item);  // 아이템을 목록에서 제거
+                Items.Remove(item); // 아이템 제거
             }
+
+            // UI 즉시 갱신
+            ListItems();
 
             return true;
         }
@@ -60,14 +102,17 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            // 새로운 아이템 추가 (아이템의 id, 이름, 값 등을 복사)
-            var newItem = ScriptableObject.CreateInstance<Item>();
-            newItem.id = item.id;
-            newItem.itemName = item.itemName;
-            newItem.value = item.value;
-            newItem.icon = item.icon;
-            newItem.itemType = item.itemType;
-            newItem.quantity = 1;
+            // 새로운 아이템 추가 (아이템의 id, 이름, 값 등을 그대로 복사)
+            // 여기서는 ScriptableObject.CreateInstance 사용하지 않고, 단순히 인스턴스를 추가합니다.
+            var newItem = new Item
+            {
+                id = item.id,
+                itemName = item.itemName,
+                value = item.value,
+                icon = item.icon,
+                itemType = item.itemType,
+                quantity = 1
+            };
 
             Items.Add(newItem);
         }

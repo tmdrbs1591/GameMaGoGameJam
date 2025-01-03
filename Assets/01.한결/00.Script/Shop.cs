@@ -122,7 +122,17 @@ public class Shop : MonoBehaviour
         // 크리스탈 아이템을 소비
         if (inventoryManager.SpendItem(1, hpPotionCost))  // 크리스탈 아이템 소비 (아이템ID=1, 수량=powerUpgradeCost)
         {
+            Item hpPotion = new Item
+            {
+                id = 3,
+                itemName = "HealthPotion",
+                value = 20,
+                quantity = 1,
+                itemType = Item.ItemType.Health_Potion
+            };
+            inventoryManager.Add(hpPotion);
             Debug.Log("체력 포션 구매");
+
         }
         else
         {
@@ -134,6 +144,15 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, speedPotionCost))  // 아이템ID=1은 크리스탈
         {
+            Item speedPotion = new Item
+            {
+                id = 2,
+                itemName = "SpeedPotion",
+                value = 3,
+                quantity = 1,
+                itemType = Item.ItemType.Speed_Potion
+            };
+            inventoryManager.Add(speedPotion);
             Debug.Log("스피드 포션 구매");
         }
         else
@@ -146,6 +165,15 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, damagePotionCost))  // 아이템ID=1은 크리스탈
         {
+            Item damagePotion = new Item
+            {
+                id = 4,
+                itemName = "DamagePotion",
+                value = 1,
+                quantity = 1,
+                itemType = Item.ItemType.Damage_Potion
+            };
+            inventoryManager.Add(damagePotion);
             Debug.Log("공격력 포션 구매");
         }
         else
