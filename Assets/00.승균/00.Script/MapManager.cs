@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour
 
     public List<GameObject> maps;
 
+    public int currentMap;
     // Start is called before the first frame update
     void Start()
     {

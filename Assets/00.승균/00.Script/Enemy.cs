@@ -53,7 +53,10 @@ public class Enemy : MonoBehaviour
             StartCoroutine(TimeSlow());
 
             FeverManager.instance.feverValue++;
+            GameManager.instance.drill.combo++;
 
+            GameManager.instance.drill.comboTextAnim.SetTrigger("Kill");
+            GameManager.instance.drill.ComboStart();
             for (int i = 0; i < 5; i++)
             {
                 if (goods == null)

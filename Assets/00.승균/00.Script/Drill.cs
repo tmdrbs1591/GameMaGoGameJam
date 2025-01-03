@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Drill : MonoBehaviour
 {
     Camera cam;
+
+    public float oriMoveSpeed = 5f;  // 이동 속도
     public float moveSpeed = 5f;  // 이동 속도
     public float rotationSpeed = 5f;  // 회전 속도
 
@@ -16,6 +19,11 @@ public class Drill : MonoBehaviour
     [SerializeField] Transform attackBoxPos; // 공격 위치
     [SerializeField] float damageInterval = 0.2f; // 피해를 줄 간격 (0.2초)
     [SerializeField] public float damageAmount = 10f; // 피해량
+    [SerializeField] float currentHP;
+    [SerializeField] float maxHP;
+    [SerializeField] Slider hpSlider;
+    [SerializeField] Slider dashSlider;
+
 
     private Coroutine damageCoroutine; // 피해 코루틴 저장용
 
@@ -35,11 +43,24 @@ public class Drill : MonoBehaviour
     [SerializeField] private float zoomStep = 1f; // 줌 감소량
     [SerializeField] private float minZoom = 10f; // 최소 줌 (FOV)
 
+    [SerializeField] GameObject myDamageEft;
+
+    public float dashCooldownTime = 0.2f; // 쿨타임 (초)
+    private float dashNextTime = 0f; // 사용 가능 시점
+
+
+    [SerializeField] public int combo;
+    [SerializeField] TMP_Text comboText;
+    [SerializeField] GameObject comboImage;
+
+    [SerializeField] public Animator comboTextAnim;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;  // 메인 카메라 가져오기
+
+        comboImage.SetActive(false);
     }
 
     void Update()
@@ -50,6 +71,21 @@ public class Drill : MonoBehaviour
             hitVolume.SetActive(true);
         else 
         hitVolume.SetActive(false);
+
+
+        hpSlider.value = currentHP/maxHP;
+        comboText.text = combo.ToString() + "Kills";
+        // 대쉬 쿨타임 슬라이더 값 계산 (1에서 0 사이로 보이게 함)
+        if (Time.time < dashNextTime)
+        {
+            // 대쉬 쿨타임이 끝나지 않았을 때
+            dashSlider.value = 1 - (Time.time - (dashNextTime - dashCooldownTime)) / dashCooldownTime;
+        }
+        else
+        {
+            // 대쉬 쿨타임이 끝났을 때
+            dashSlider.value = 0;
+        }
 
         Skill();
         // 마우스 왼쪽 버튼 클릭 시에만 마우스 방향으로 이동
@@ -77,11 +113,25 @@ public class Drill : MonoBehaviour
 
     void Skill()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) { 
-        
-        StartCoroutine(SkillCor());
+        if (Input.GetKeyDown(KeyCode.Q)) {
 
-        }
+            if (Time.time >= dashNextTime)
+            {
+                StartCoroutine(SkillCor());
+                dashNextTime = Time.time + dashCooldownTime;
+            }
+            }
+    }
+
+    public void ComboStart()
+    {
+        comboImage.SetActive(true);
+    }
+
+    void ComboEnd()
+    {
+        combo = 0;
+        comboImage.SetActive(false);
     }
 
     void MoveTowardsMouseDirection()
@@ -147,8 +197,38 @@ public class Drill : MonoBehaviour
                 damageCoroutine = null;
             }
         }
+
+
+        if (other.CompareTag("EnemyBullet"))
+        {
+            StartCoroutine(MyDamageCor());
+            Destroy(other.gameObject);
+        }
     }
 
+    IEnumerator MyDamageCor()
+    {
+        myDamageEft.SetActive(true);
+
+        ComboEnd();
+
+        currentHP -= 1;
+
+        CameraShake.instance.ShakeCamera(15f, 0.4f);
+        AdjustCameraZoom();
+        moveSpeed /= 2;
+
+        yield return new WaitForSeconds(0.5f);
+        
+
+        myDamageEft.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+        moveSpeed = oriMoveSpeed;
+        ResetCameraZoom();
+
+
+    }
     private IEnumerator DamageOverTime(Transform enemy)
     {
         // 'Enemy'와 닿아 있을 때 0.2초마다 피해를 주는 코루틴
@@ -245,7 +325,8 @@ public class Drill : MonoBehaviour
 
     IEnumerator SkillCor()
     {
-        CameraShake.instance.ShakeCamera(10f, 0.2f);
+        CameraShake.instance.ShakeCamera(10f, 0.6f);
+
         moveSpeed = 60;
         skillEft.SetActive(false);
         skillEft.SetActive(true);
