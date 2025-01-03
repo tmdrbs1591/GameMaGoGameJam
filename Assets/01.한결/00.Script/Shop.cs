@@ -205,6 +205,7 @@ public class Shop : MonoBehaviour
         if (inventoryManager.SpendItem(1, hpUpgradeCost))  // 아이템ID=1은 크리스탈
         {
             hpUpgradeCost += 2;
+            drill.maxHP += 10;
             Debug.Log("드릴 최대 체력 업");
         }
         else
@@ -217,6 +218,7 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, speedUpgradeCost))  // 아이템ID=1은 크리스탈
         {
+            drill.moveSpeed += 0.5f;
             speedUpgradeCost += 3;
             Debug.Log("드릴 최대 속도 업");
         }
@@ -230,6 +232,7 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, damageUpgradeCost))  // 아이템ID=1은 크리스탈
         {
+            drill.damageAmount += 0.25f;
             damageUpgradeCost += 5;
             Debug.Log("드릴 최대 공격력 업");
         }
