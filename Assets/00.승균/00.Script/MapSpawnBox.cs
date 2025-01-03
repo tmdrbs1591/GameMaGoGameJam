@@ -42,11 +42,15 @@ public class MapSpawnBox : MonoBehaviour
             if (MapManager.instance.currentMap % 5 == 0)
             {
                 var nextMaps = Instantiate(nextMap, mapSpawnPos.transform.position, Quaternion.identity);
+
+                Debug.Log("けいし");
                 MapManager.instance.maps.Add(nextMaps);
             }
             else
             {
                 var maps = Instantiate(map[0], mapSpawnPos.transform.position, Quaternion.identity);
+                Debug.Log("けいしいい");
+
                 MapManager.instance.maps.Add(maps);
             }
 

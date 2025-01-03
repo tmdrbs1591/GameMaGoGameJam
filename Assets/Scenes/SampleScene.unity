@@ -19913,7 +19913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1392203602
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22056,7 +22056,7 @@ GameObject:
   - component: {fileID: 1799444429}
   m_Layer: 8
   m_Name: Cube
-  m_TagString: Drill
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25595,6 +25595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589943080671923597, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3944785320142271595, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
