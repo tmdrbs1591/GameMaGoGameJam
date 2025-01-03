@@ -50,6 +50,11 @@ public class GameManager : MonoBehaviour
 
         text.text = ((int)score).ToString() + "m";
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseShop();
+        }
+
     }
 
     public void OpenShop()
@@ -57,10 +62,15 @@ public class GameManager : MonoBehaviour
         shopPanel.SetActive(true);
         StartCoroutine(TimeScale());
     }
+    public void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        Time.timeScale = 1;
 
+    }
     IEnumerator TimeScale()
     {
-        yield return new WaitForSecondsRealtime(0.6f);
+        yield return new WaitForSecondsRealtime(0.2f);
         Time.timeScale = 0;
     }
 }
