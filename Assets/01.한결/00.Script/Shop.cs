@@ -8,12 +8,12 @@ public class Shop : MonoBehaviour
     public GameObject shopPanel;
     public Image[] upgradeImage;
 
-    public Button drillPower;
-    public Button coinGain;
-    public Button drillDamage;
-    public Button drillHealth;
-
-    public TextMeshProUGUI CryStal;
+    public Button hpPotion;
+    public Button speedPotion;
+    public Button damagePotion;
+    public Button hpUpgrade;
+    public Button speedUpgrade;
+    public Button damageUpgrade;
 
     [SerializeField]
     private Vector3 detectionBoxSize = new Vector3(5f, 5f, 5f);
@@ -27,10 +27,12 @@ public class Shop : MonoBehaviour
     private Drill drill;
     public ToolTip toolTip;
 
-    private int powerUpgradeCost = 5;
-    private int coinGainUpgradeCost = 3;
-    private int damageUpgradeCost = 7;
-    private int healthUpgradeCost = 4;
+    private int hpPotionCost = 2;
+    private int speedPotionCost = 3;
+    private int damagePotionCost = 3;
+    private int hpUpgradeCost = 5;
+    private int speedUpgradeCost = 7;
+    private int damageUpgradeCost = 10;
 
     private void Start()
     {
@@ -53,10 +55,12 @@ public class Shop : MonoBehaviour
 
     private void AddButtonListeners()
     {
-        AddToolTipEvents(drillPower, "드릴 파워 강화", $"Cost: {powerUpgradeCost} Crystals");
-        AddToolTipEvents(coinGain, "코인 휙득량 증가", $"Cost: {coinGainUpgradeCost} Crystals");
-        AddToolTipEvents(drillDamage, "드릴 데미지 증가", $"Cost: {damageUpgradeCost} Crystals");
-        AddToolTipEvents(drillHealth, "드릴 최대 체력 증가", $"Cost: {healthUpgradeCost} Crystals");
+        AddToolTipEvents(hpPotion, "체력 포션", $"Cost: {hpPotionCost} Crystals");
+        AddToolTipEvents(speedPotion, "스피드 포션", $"Cost: {speedPotionCost} Crystals");
+        AddToolTipEvents(damagePotion, "공격력 포션", $"Cost: {damagePotionCost} Crystals");
+        AddToolTipEvents(hpUpgrade, "드릴 최대 체력 증가", $"Cost: {hpUpgradeCost} Crystals");
+        AddToolTipEvents(speedUpgrade, "드릴 최대 속도 증가", $"Cost: {speedUpgradeCost} Crystals");
+        AddToolTipEvents(damageUpgrade, "드릴 최대 공격력 증가", $"Cost: {damageUpgradeCost} Crystals");
     }
 
     private void AddToolTipEvents(Button button, string title, string description)
@@ -113,13 +117,12 @@ public class Shop : MonoBehaviour
     }
 
     #region 업그레이드
-    public void PowerUpgrade()
+    public void HpPotionBuy()
     {
         // 크리스탈 아이템을 소비
-        if (inventoryManager.SpendItem(1, powerUpgradeCost))  // 크리스탈 아이템 소비 (아이템ID=1, 수량=powerUpgradeCost)
+        if (inventoryManager.SpendItem(1, hpPotionCost))  // 크리스탈 아이템 소비 (아이템ID=1, 수량=powerUpgradeCost)
         {
-            powerUpgradeCost += 5;  // 업그레이드 비용 증가
-            Debug.Log("드릴 파워 업");
+            Debug.Log("체력 포션 구매");
         }
         else
         {
@@ -127,12 +130,49 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void CoinGainUpgrade()
+    public void SpeedPotionBuy()
     {
-        if (inventoryManager.SpendItem(1, coinGainUpgradeCost))  // 아이템ID=1은 크리스탈
+        if (inventoryManager.SpendItem(1, speedPotionCost))  // 아이템ID=1은 크리스탈
         {
-            coinGainUpgradeCost += 10;
-            Debug.Log("코인 획득량 업");
+            Debug.Log("스피드 포션 구매");
+        }
+        else
+        {
+            Debug.Log("크리스탈이 부족합니다.");
+        }
+    }
+
+    public void DamagePotionBuy()
+    {
+        if (inventoryManager.SpendItem(1, damagePotionCost))  // 아이템ID=1은 크리스탈
+        {
+            Debug.Log("공격력 포션 구매");
+        }
+        else
+        {
+            Debug.Log("크리스탈이 부족합니다.");
+        }
+    }
+
+    public void HpUpgrade()
+    {
+        if (inventoryManager.SpendItem(1, hpUpgradeCost))  // 아이템ID=1은 크리스탈
+        {
+            hpUpgradeCost += 2;
+            Debug.Log("드릴 최대 체력 업");
+        }
+        else
+        {
+            Debug.Log("크리스탈이 부족합니다.");
+        }
+    }
+
+    public void SpeedUpgrade()
+    {
+        if (inventoryManager.SpendItem(1, speedUpgradeCost))  // 아이템ID=1은 크리스탈
+        {
+            speedUpgradeCost += 3;
+            Debug.Log("드릴 최대 속도 업");
         }
         else
         {
@@ -144,21 +184,8 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, damageUpgradeCost))  // 아이템ID=1은 크리스탈
         {
-            damageUpgradeCost += 3;
-            Debug.Log("드릴 공격력 업");
-        }
-        else
-        {
-            Debug.Log("크리스탈이 부족합니다.");
-        }
-    }
-
-    public void HealthUpgrade()
-    {
-        if (inventoryManager.SpendItem(1, healthUpgradeCost))  // 아이템ID=1은 크리스탈
-        {
-            healthUpgradeCost += 1;
-            Debug.Log("드릴 체력 업");
+            damageUpgradeCost += 5;
+            Debug.Log("드릴 최대 공격력 업");
         }
         else
         {
