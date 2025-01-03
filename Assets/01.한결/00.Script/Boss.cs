@@ -6,14 +6,20 @@ public class Boss : MonoBehaviour
     private float moveSpeed = 5f;   // 보스가 아래로 내려가는 속도
 
     [SerializeField] Transform[] bulletPos;  // 총알 생성 위치 배열
+    [SerializeField] Transform tonguePos; 
     [SerializeField] GameObject[] dangerLine; // 경고 라인 배열
 
     [SerializeField] GameObject bulletPrefab; // 총알 프리팹
+    [SerializeField] GameObject tongue;       // tongue 객체
 
-    [SerializeField] private float fireInterval = 2f; // 총알 발사 간격
+    [SerializeField] private float fireInterval = 2f;  // 총알 발사 간격
+    [SerializeField] private float tongueInterval = 15f;  // tongue 생성 간격
 
     private float fireTimer;
+    private float tongueTimer;
 
+    Enemy enemy;
+ 
     private void Update()
     {
         // 보스가 아래로 내려가는 함수
@@ -21,12 +27,21 @@ public class Boss : MonoBehaviour
 
         if (CutSceneManager.instance.isCutScene)
             return;
+
         // 총알 발사 타이머 업데이트
         fireTimer += Time.deltaTime;
         if (fireTimer >= fireInterval)
         {
             FireRandomBullet();
             fireTimer = 0f;
+        }
+
+        // tongue 생성 타이머 업데이트
+        tongueTimer += Time.deltaTime;
+        if (tongueTimer >= tongueInterval)
+        {
+            SpawnTongue();
+            tongueTimer = 0f;
         }
     }
 
@@ -49,6 +64,19 @@ public class Boss : MonoBehaviour
 
         // 해당 위치에 총알 생성
         Instantiate(bulletPrefab, bulletPos[randomIndex].position, Quaternion.identity);
+    }
+
+    private void SpawnTongue()
+    {
+        if (tongue != null)
+        {
+            // 현재 보스의 위치에서 tongue 생성
+            Instantiate(tongue, tonguePos.transform.position + new Vector3 (0, -20, 0), Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("tongue 프리팹이 설정되지 않았습니다.");
+        }
     }
 
     private System.Collections.IEnumerator DeactivateDangerLineAfterDelay(GameObject dangerLine, float delay)

@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private float lowestY; // 드릴의 최저 y값 저장
 
+    public bool isDamageTrue;
+    public GameObject hpLockPanel;
     private void Awake()
     {
         instance = this;
@@ -30,6 +32,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Stun()
+    {
+        StartCoroutine(TongueCor());
+    }
+    IEnumerator TongueCor()
+    {
+        isDamageTrue = true;
+        yield return new WaitForSeconds(4f);
+        isDamageTrue = false;
+    }
     void Update()
     {
 

@@ -10,7 +10,8 @@ public enum Type
     CryStal,
     Wall,
     Shop,
-    Boss
+    Boss,
+    Tongue
 }
 public class Enemy : MonoBehaviour
 {
@@ -30,11 +31,17 @@ public class Enemy : MonoBehaviour
     bool isdie;
     public Renderer ren;
 
+
+
+    Enemy TongueEnemy;
+
     
     // Start is called before the first frame update
     void Start()
     {
         currentHP = maxHP;
+
+
     }
 
     // Update is called once per frame
@@ -43,6 +50,11 @@ public class Enemy : MonoBehaviour
 
         hpbar.value = currentHP/maxHP;
         Die();
+
+        if (!GameManager.instance.isDamageTrue && currentType == Type.Boss)
+            GameManager.instance.hpLockPanel.SetActive(true);
+        if (GameManager.instance.isDamageTrue && currentType == Type.Boss)
+            GameManager.instance.hpLockPanel.SetActive(false );
     }
 
     void Die()
@@ -74,8 +86,13 @@ public class Enemy : MonoBehaviour
             {
                 AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
             }
-      
-            isdie = true;
+            if (currentType == Type.Tongue)
+            {
+                GameManager.instance.Stun();
+                AudioManager.instance.PlaySound(transform.position, 2, Random.Range(1.3f, 1.7f), 1f);
+            }
+            
+                  isdie = true;
         }
     }
     private void OnDestroy()
@@ -85,6 +102,8 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        if (!GameManager.instance.isDamageTrue && currentType == Type.Boss) 
+            return;
         currentHP -= damage;
 
         CameraShake.instance.ShakeCamera(7f, 0.1f);

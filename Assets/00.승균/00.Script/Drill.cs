@@ -72,8 +72,19 @@ public class Drill : MonoBehaviour
         cam = Camera.main;  // 메인 카메라 가져오기
         rb = GetComponent<Rigidbody>();
         comboImage.SetActive(false);
+
+        StartCoroutine(StartCor());
+
     }
 
+    IEnumerator StartCor()
+    {
+
+        this.enabled = false;
+        yield return new WaitForSeconds(2f);
+        this.enabled = true;
+
+    }
     void Update()
     {
         if (CutSceneManager.instance.isCutScene)
@@ -138,7 +149,6 @@ public class Drill : MonoBehaviour
         // 마우스 왼쪽 버튼을 누르지 않았을 때 현재 방향으로 천천히 내려가기
         else
         {
-
             MoveDownSlowly();
         }
     }
