@@ -29,7 +29,7 @@ public class DeformPlane : MonoBehaviour
         }
 
         // 'EnemyBox' 태그를 가진 객체가 충돌하면 범위 3으로 뚫기
-        if (other.CompareTag("EnemyBox"))
+        if (other.CompareTag("EnemyBox") || other.CompareTag("EnemyBullet"))
         {
             // EnemyBox 위치를 기준으로 반경 3 내에서 뚫기
             DeformThisPlane(other.transform.position, 0.6f);
