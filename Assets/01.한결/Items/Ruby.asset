@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39fdb9f4174ba954684a467d5e0c2ae1, type: 3}
   m_Name: Ruby
   m_EditorClassIdentifier: 
-  id: 0
-  itemName: 
-  value: 0
-  icon: {fileID: 0}
+  id: 5
+  itemName: Ruby
+  value: 1
+  icon: {fileID: 21300006, guid: 5b3d57683d9bd5b41b8e5e66c6beda06, type: 3}
   itemType: 0
   Description: 
   quantity: 0
