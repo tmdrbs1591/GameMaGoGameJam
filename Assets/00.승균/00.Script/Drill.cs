@@ -26,6 +26,8 @@ public class Drill : MonoBehaviour
     [SerializeField] Slider hpSlider;
     [SerializeField] Slider dashSlider;
 
+    private Rigidbody rb;
+
     bool isSKill;
 
 
@@ -68,7 +70,7 @@ public class Drill : MonoBehaviour
     void Start()
     {
         cam = Camera.main;  // 메인 카메라 가져오기
-
+        rb = GetComponent<Rigidbody>();
         comboImage.SetActive(false);
     }
 
@@ -161,7 +163,8 @@ public class Drill : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + rayDirection * raycastLength, Color.green);
 
         // Drill 이동 (현재 방향 기준)
-        transform.position += transform.up * -moveSpeed * Time.deltaTime / 3;
+        rb.velocity = transform.up * -moveSpeed / 3;
+
     }
     void Skill()
     {
@@ -222,7 +225,8 @@ public class Drill : MonoBehaviour
         }
 
         // Wall과 충돌하지 않으면 이동
-        transform.position += direction.normalized * moveSpeed * Time.deltaTime;
+        rb.velocity = direction.normalized * moveSpeed;
+
     }
 
     void RotateAwayFromMouseDirection()

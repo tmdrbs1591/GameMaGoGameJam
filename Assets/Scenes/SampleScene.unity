@@ -681,7 +681,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &40295831
 MonoBehaviour:
@@ -793,7 +793,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.14954805
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -19538,7 +19538,7 @@ GameObject:
   - component: {fileID: 1392203605}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23992,12 +23992,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.585403, y: 1, z: 2.0840583}
-  m_Center: {x: 0, y: 8.701472e-16, z: 0.54203004}
+  m_Size: {x: 5.585403, y: 1, z: 7.910328}
+  m_Center: {x: 0, y: -1.6777097e-15, z: -2.3711064}
 --- !u!114 &2048997386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25254,6 +25254,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312975176353792638, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2367575694065229226, guid: 407f11c57882a6d41bd3983bb9f2b0af,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2384549872635105779, guid: 407f11c57882a6d41bd3983bb9f2b0af,
         type: 3}
