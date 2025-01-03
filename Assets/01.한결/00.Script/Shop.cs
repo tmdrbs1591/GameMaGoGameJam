@@ -14,6 +14,8 @@ public class Shop : MonoBehaviour
     public Button hpUpgrade;
     public Button speedUpgrade;
     public Button damageUpgrade;
+    public Button drillUpgrade1;
+    public Button drillUpgrade2;
 
     [SerializeField]
     private Vector3 detectionBoxSize = new Vector3(5f, 5f, 5f);
@@ -33,6 +35,8 @@ public class Shop : MonoBehaviour
     private int hpUpgradeCost = 5;
     private int speedUpgradeCost = 7;
     private int damageUpgradeCost = 10;
+    private int drillUpgrade1Cost = 30;
+    private int drillUpgrade2Cost = 50;
 
     public Sprite HpPotionSprite;
     public Sprite SpeedPotionSprite;
@@ -65,6 +69,8 @@ public class Shop : MonoBehaviour
         AddToolTipEvents(hpUpgrade, "드릴 최대 체력 증가", $"Cost: {hpUpgradeCost} Crystals");
         AddToolTipEvents(speedUpgrade, "드릴 최대 속도 증가", $"Cost: {speedUpgradeCost} Crystals");
         AddToolTipEvents(damageUpgrade, "드릴 최대 공격력 증가", $"Cost: {damageUpgradeCost} Crystals");
+        AddToolTipEvents(drillUpgrade1, "드릴 1단계 강화", $"Cost: {drillUpgrade1Cost} Ruby");
+        AddToolTipEvents(drillUpgrade2, "드릴 2단계 강화", $"Cost: {drillUpgrade2Cost} Ruby");
     }
 
     private void AddToolTipEvents(Button button, string title, string description)
@@ -225,6 +231,30 @@ public class Shop : MonoBehaviour
         else
         {
             Debug.Log("크리스탈이 부족합니다.");
+        }
+    }
+
+    public void DrillUpgrade1()
+    {
+        if (inventoryManager.SpendItem(5, drillUpgrade1Cost))  // 아이템ID=5은 루비
+        {
+            Debug.Log("드릴 단계 업");
+        }
+        else
+        {
+            Debug.Log("루비가 부족합니다.");
+        }
+    }
+
+    public void DrillUpgrade2()
+    {
+        if (inventoryManager.SpendItem(1, drillUpgrade2Cost))  // 아이템ID=5은 루비
+        {
+            Debug.Log("드릴 단계 업");
+        }
+        else
+        {
+            Debug.Log("루비가 부족합니다.");
         }
     }
     #endregion

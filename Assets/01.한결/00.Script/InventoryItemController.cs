@@ -33,6 +33,9 @@ public class InventoryItemController : MonoBehaviour
             case Item.ItemType.Crystal:
                 return;
 
+            case Item.ItemType.Ruby:
+                return;
+
             case Item.ItemType.Health_Potion:
                 drill.currentHP += item.value;
                 break;

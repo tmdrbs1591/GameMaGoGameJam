@@ -14,9 +14,29 @@ public class InventoryManager : MonoBehaviour
 
     public Toggle EnableRemove;  // 아이템 삭제 여부를 조정하는 Toggle
 
+    public GameObject inVenPanel;
+
+    bool isInven;
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && !isInven)
+        {
+            inVenPanel.SetActive(true);
+            isInven = true;
+            ListItems();
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && isInven)
+        {
+            isInven = false;
+            inVenPanel.SetActive(false);
+
+        }
     }
 
     public Item GetItemById(int id)
