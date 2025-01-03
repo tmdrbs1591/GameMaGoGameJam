@@ -327,6 +327,7 @@ public class Drill : MonoBehaviour
     {
         CameraShake.instance.ShakeCamera(10f, 0.6f);
 
+        AudioManager.instance.PlaySound(transform.position, 3, Random.Range(1.3f, 1.7f), 1f);
         moveSpeed = 60;
         skillEft.SetActive(false);
         skillEft.SetActive(true);

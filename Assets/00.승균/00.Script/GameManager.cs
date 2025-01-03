@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TMP_Text text;
 
+    public GameObject shopPanel;
     public float score;
 
     private float lowestY; // 드릴의 최저 y값 저장
@@ -49,5 +50,27 @@ public class GameManager : MonoBehaviour
 
         text.text = ((int)score).ToString() + "m";
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseShop();
+        }
+
+    }
+
+    public void OpenShop()
+    {
+        shopPanel.SetActive(true);
+        StartCoroutine(TimeScale());
+    }
+    public void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        Time.timeScale = 1;
+
+    }
+    IEnumerator TimeScale()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = 0;
     }
 }
