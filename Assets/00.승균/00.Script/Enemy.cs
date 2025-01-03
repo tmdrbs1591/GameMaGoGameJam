@@ -133,17 +133,19 @@ public class Enemy : MonoBehaviour
     }
         IEnumerator TimeSlow()
     {
+       
             Time.timeScale = 0.1f;
             yield return new WaitForSecondsRealtime(0.2f);
             Time.timeScale = 1;
-        if (goods != null)
-        Destroy(Instantiate(dieEffect, transform.position, Quaternion.identity), 3f);
-        Destroy(gameObject);
+            if (goods != null)
+                Destroy(Instantiate(dieEffect, transform.position, Quaternion.identity), 3f);
+            Destroy(gameObject);
 
-        if (currentType == Type.Tongue)
-        {
-            Destroy(transform.parent.gameObject);
-        }   
+            if (currentType == Type.Tongue)
+            {
+                Destroy(transform.parent.gameObject);
+            }
+       
 
     }
 

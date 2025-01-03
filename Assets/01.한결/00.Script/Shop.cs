@@ -55,7 +55,6 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        shopPanel.SetActive(false);
         inventoryManager = FindObjectOfType<InventoryManager>();  // InventoryManager 찾기
         drill = FindObjectOfType<Drill>();
 
@@ -191,7 +190,7 @@ public class Shop : MonoBehaviour
             {
                 id = 4,
                 itemName = "DamagePotion",
-                value = 1,
+                value = 0.1f,
                 quantity = 1,
                 itemType = Item.ItemType.Damage_Potion,
                 icon = DamagePotionSprite
@@ -237,7 +236,7 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, damageUpgradeCost))  // 아이템ID=1은 크리스탈
         {
-            drill.damageAmount += 0.25f;
+            drill.damageAmount += 0.1f;
             damageUpgradeCost += 5;
             Debug.Log("드릴 최대 공격력 업");
         }

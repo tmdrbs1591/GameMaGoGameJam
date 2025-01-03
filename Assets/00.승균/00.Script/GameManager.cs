@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public bool isDamageTrue;
     public GameObject hpLockPanel;
+
     private void Awake()
     {
         instance = this;
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour
         {
             // 초기 드릴의 y값을 최저값으로 설정
             lowestY = drill.transform.position.y;
+
+
         }
     }
 
@@ -86,5 +90,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.2f);
         Time.timeScale = 0;
+    }
+
+    public void ReStart()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }

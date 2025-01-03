@@ -56,7 +56,7 @@ public class DrillGold : MonoBehaviour
         maxExp += 10; // 레벨당 필요 경험치 10 증가
         Debug.Log("레벨업! 현재 레벨: " + level);
 
-        drill.damageAmount += 0.5f;
+        drill.damageAmount += 0.1f;
     }
 
     private void UpdateUI()

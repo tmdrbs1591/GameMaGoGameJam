@@ -63,8 +63,11 @@ public class Drill : MonoBehaviour
     [SerializeField] public int combo;
     [SerializeField] TMP_Text comboText;
     [SerializeField] GameObject comboImage;
+    [SerializeField] GameObject gameOverPanel;
 
     [SerializeField] public Animator comboTextAnim;
+
+    public GameObject dieEft;
 
     // Start is called before the first frame update
     void Start()
@@ -124,6 +127,7 @@ public class Drill : MonoBehaviour
             attackEffect.SetActive(false);
         }
 
+        Die();
 
         hpSlider.value = currentHP / maxHP;
         comboText.text = combo.ToString() + "Kills";
@@ -150,6 +154,16 @@ public class Drill : MonoBehaviour
         else
         {
             MoveDownSlowly();
+        }
+    }
+
+    void Die()
+    {
+        if(currentHP <= 0)
+        {
+            Instantiate(dieEft, transform.position, Quaternion.identity);
+            gameOverPanel.SetActive(true);
+            Destroy(gameObject);
         }
     }
     void MoveDownSlowly()
@@ -249,18 +263,18 @@ public class Drill : MonoBehaviour
 
         if (other.CompareTag("EnemyBullet"))
         {
-            StartCoroutine(MyDamageCor());
+            StartCoroutine(MyDamageCor(3));
             Destroy(other.gameObject);
         }
     }
 
-    IEnumerator MyDamageCor()
+    IEnumerator MyDamageCor(float damage)
     {
         myDamageEft.SetActive(true);
 
         ComboEnd();
 
-        currentHP -= 1;
+        currentHP -= damage;
 
         CameraShake.instance.ShakeCamera(15f, 0.4f);
         AdjustCameraZoom();
@@ -334,7 +348,14 @@ public class Drill : MonoBehaviour
         }
     }
     private void OnCollisionEnter(Collision collision)
-    {   
+    {
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            if (!GameManager.instance.isDamageTrue)
+            {
+                StartCoroutine(MyDamageCor(1));
+            }
+        }
     }
     void AdjustCameraZoom()
     {
