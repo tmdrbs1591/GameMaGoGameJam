@@ -37,6 +37,29 @@ public class InventoryManager : MonoBehaviour
             inVenPanel.SetActive(false);
 
         }
+       
+    
+        if (Input.GetKeyDown(KeyCode.Alpha1)) // 1번 키 눌렀을 때
+        {
+            UseItemFromInventory(0);  // 첫 번째 아이템 사용
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) // 2번 키 눌렀을 때
+        {
+            UseItemFromInventory(1);  // 두 번째 아이템 사용
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) // 3번 키 눌렀을 때
+        {
+            UseItemFromInventory(2);  // 두 번째 아이템 사용
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) // 4번 키 눌렀을 때
+        {
+            UseItemFromInventory(3);  // 두 번째 아이템 사용
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5)) // 5번 키 눌렀을 때
+        {
+            UseItemFromInventory(4);  // 두 번째 아이템 사용
+        }
+    
     }
 
     public Item GetItemById(int id)
@@ -198,6 +221,20 @@ public class InventoryManager : MonoBehaviour
         foreach (Transform item in ItemContent)
         {
             item.Find("RemoveButton").gameObject.SetActive(EnableRemove.isOn);
+        }
+    }
+
+    public void UseItemFromInventory(int index)
+    {
+        if (index >= 0 && index < Items.Count)
+        {
+            var item = Items[index];
+            var itemController = ItemContent.GetChild(index).GetComponent<InventoryItemController>();
+            itemController.UseItem();
+        }
+        else
+        {
+            Debug.Log("해당 인덱스에 아이템이 없습니다.");
         }
     }
 }
