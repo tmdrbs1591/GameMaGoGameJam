@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
+    public GameObject driil;
+    public GameObject Drill1;
+    public GameObject Drill2;
+
     public Image[] upgradeImage;
 
     public Button hpPotion;
@@ -246,6 +250,9 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(5, drillUpgrade1Cost))  // 아이템ID=5은 루비
         {
+            driil.SetActive(false);
+            Drill1.SetActive(true);
+            Drill2.SetActive(false);
             Debug.Log("드릴 단계 업");
         }
         else
@@ -258,6 +265,9 @@ public class Shop : MonoBehaviour
     {
         if (inventoryManager.SpendItem(1, drillUpgrade2Cost))  // 아이템ID=5은 루비
         {
+            Drill1.SetActive(false);
+            Drill2.SetActive(true);
+            driil.SetActive(false);
             Debug.Log("드릴 단계 업");
         }
         else
