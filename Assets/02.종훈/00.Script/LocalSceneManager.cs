@@ -7,9 +7,17 @@ public class LocalSceneManager : MonoBehaviour
 {
     public GameObject SettingWindow;
     
+    public FadeManager fadeManager;
     //메인
     public void OnClickStart()
     {
+        StartCoroutine(SceneCor());
+    }
+
+    IEnumerator SceneCor()
+    {
+        fadeManager.FadeInActive();
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Scenes/SampleScene");
     }
     
