@@ -90,7 +90,7 @@ public class Drill : MonoBehaviour
 
             foreach (Collider collider in colliders)
             {
-                if (collider != null && collider.CompareTag("Enemy"))
+                if (collider != null && collider.CompareTag("Enemy") || collider != null && collider.CompareTag("Boss"))
                 {
                     isCollidingWithEnemy = true;
                     Debug.Log(isCollidingWithEnemy);
@@ -310,6 +310,10 @@ public class Drill : MonoBehaviour
                     if (enemyScript.currentType == Type.Wall)
                     {
                         zoomStep = 0.05f;
+                    }
+                    else if (enemyScript.currentType == Type.Boss)
+                    {
+                        zoomStep = 0f;
                     }
                     else
                     {

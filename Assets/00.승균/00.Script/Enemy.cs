@@ -9,7 +9,8 @@ public enum Type
     Enemy,
     CryStal,
     Wall,
-    Shop
+    Shop,
+    Boss
 }
 public class Enemy : MonoBehaviour
 {

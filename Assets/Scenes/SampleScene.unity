@@ -952,6 +952,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 922df2eb44645be4f8cef5b3a2c87270,
+        type: 3}
+      propertyPath: m_TagString
+      value: Boss
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -964,6 +969,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2048997385}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 922df2eb44645be4f8cef5b3a2c87270,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2048997386}
   m_SourcePrefab: {fileID: 100100000, guid: 922df2eb44645be4f8cef5b3a2c87270, type: 3}
 --- !u!4 &46873848 stripped
 Transform:
@@ -3871,7 +3880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18456,7 +18465,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 582539386}
   m_HandleRect: {fileID: 0}
@@ -23989,6 +23998,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.585403, y: 1, z: 2.0840583}
   m_Center: {x: 0, y: 8.701472e-16, z: 0.54203004}
+--- !u!114 &2048997386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048997383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef3e2302b1217b249933a06a07774193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentType: 4
+  maxHP: 100
+  currentHP: 100
+  dieMaterial: {fileID: 0}
+  dieEffect: {fileID: 0}
+  goods: {fileID: 0}
+  hpbar: {fileID: 1290304247}
+  ren: {fileID: 0}
 --- !u!1 &2066179467
 GameObject:
   m_ObjectHideFlags: 0
